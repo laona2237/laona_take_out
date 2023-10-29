@@ -36,7 +36,7 @@ public class CommonController {
         log.info(file.toString());
 
         //原始文件名
-        String originalFilename = file.getOriginalFilename();//abc.jpg
+        String originalFilename = file.getOriginalFilename();
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
 
         //使用UUID重新生成文件名，防止文件名称重复造成文件覆盖
@@ -63,6 +63,9 @@ public class CommonController {
      * 文件下载
      * @param name
      * @param response
+     *
+     * 通过输入流从basepath读取文件内容，读入byte[]  bytes中
+     * 读完后，bytes 传入输出流，通过输出流将文件写回浏览器
      */
     @GetMapping("/download")
     public void download(String name, HttpServletResponse response){

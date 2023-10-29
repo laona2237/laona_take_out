@@ -19,4 +19,4 @@ mybatis-plus:
       id-type: ASSIGN_ID
 
 laonatakeout:
-  path:E:\java\work\laonatakeoutpath\
+  path: E:\java\work\laonatakeoutpath\

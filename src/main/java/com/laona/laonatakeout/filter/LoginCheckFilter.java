@@ -34,7 +34,9 @@ public class LoginCheckFilter implements Filter {
                 "/employee/login",
                 "/employee/logout",
                 "/backend/**",
-                "/front/**"
+                "/front/**",
+                "/user/sendMsg",
+                "/user/login"
         };
 
 
@@ -48,7 +50,7 @@ public class LoginCheckFilter implements Filter {
             return;
         }
 
-        //4、判断登录状态，如果已登录，则直接放行
+        //4-1、判断登录状态，如果已登录，则直接放行
         if(request.getSession().getAttribute("employee") != null){
             log.info("用户已登录，用户id为：{}",request.getSession().getAttribute("employee"));
 
@@ -57,6 +59,17 @@ public class LoginCheckFilter implements Filter {
 
 //            long id = Thread.currentThread().getId();
 //            log.info("线程id 为:{}",id);
+
+            filterChain.doFilter(request,response);
+            return;
+        }
+
+        //4-2、判断登录状态，如果已登录，则直接放行
+        if(request.getSession().getAttribute("user") != null){
+            log.info("用户已登录，用户id为：{}",request.getSession().getAttribute("user"));
+
+            Long userId  = (Long) request.getSession().getAttribute("user");
+            BaseContext.setCurrentId(userId);
 
             filterChain.doFilter(request,response);
             return;
